@@ -10,4 +10,7 @@ cp -a client/build/. public/
 # builds the back end code
 bundle install
 bundle exec rake db:migrate
-bundle exec rake db:seed # if you have seed data, run this command for the initial deploy only
+
+# if you have seed data, run this command for the initial deploy only
+# If we keep the seed command in the script, it will re-seed the data every time we push up a change, resulting in duplicate records.
+# bundle exec rake db:seed 
