@@ -4,6 +4,7 @@ const SignUp = () => {
   const initialValues = {
     username: "",
     password: "",
+    passwordConfirmation: "",
   };
 
   // State sets default form input value as object with empty strings.
@@ -22,10 +23,30 @@ const SignUp = () => {
     console.log(values);
   };
 
+  function handleSubmit(e) {
+    // prevent page refresh on submit:
+    e.preventDefault();
+    console.log("submitted");
+    console.log(values);
+
+    fetch("/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+      .then((r) => r.json())
+      .then((data) => console.log(data));
+
+    // clear input fields on submit by updating values state:
+    setValues(initialValues);
+  }
+
   return (
     <div>
       <em>SignUp Component</em>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>
           Username (minimum 2 characters){" "}
           <input
@@ -36,13 +57,27 @@ const SignUp = () => {
             onChange={handleInputChange}
           ></input>
         </label>
+        <br></br>
         <label>
           Password (must be 2-8 characters){" "}
           <input
-            type="text"
+            type="password"
             name="password"
+            autoComplete="on"
             placeholder="Password"
             value={values.password}
+            onChange={handleInputChange}
+          ></input>
+        </label>
+        <br></br>
+        <label>
+          Confirm Password{" "}
+          <input
+            type="password"
+            name="passwordConfirmation"
+            autoComplete="on"
+            placeholder="must match password"
+            value={values.passwordConfirmation}
             onChange={handleInputChange}
           ></input>
         </label>
