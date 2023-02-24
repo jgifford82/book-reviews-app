@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const SignUp = () => {
   const initialValues = {
     username: "",
     password: "",
-    passwordConfirmation: "",
+    password_confirmation: "",
   };
 
   // State sets default form input value as object with empty strings.
   const [values, setValues] = useState(initialValues);
+  // State set default error value as empty string
+  const [errors, setErrors] = useState([]);
 
   // Handles all form inputs with a single onChange handler. Destructured name & value attributes from input fields to reference the key/value pairs when updating state. onChange prop added to each input to call handleInputChange
   const handleInputChange = (e) => {
@@ -20,14 +22,17 @@ const SignUp = () => {
       ...values,
       [name]: value,
     });
-    console.log(values);
+    // console.log(values);
   };
 
   function handleSubmit(e) {
     // prevent page refresh on submit:
     e.preventDefault();
-    console.log("submitted");
-    console.log(values);
+    // console.log("submitted");
+    // console.log(values);
+
+    setErrors([]);
+    // setIsLoading(true);
 
     fetch("/signup", {
       method: "POST",
@@ -35,9 +40,14 @@ const SignUp = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
-    })
-      .then((r) => r.json())
-      .then((data) => console.log(data));
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((user) => console.log(user));
+      } else {
+        // sets errors state with error messages if response is not ok
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
 
     // clear input fields on submit by updating values state:
     setValues(initialValues);
@@ -45,7 +55,6 @@ const SignUp = () => {
 
   return (
     <div>
-      <em>SignUp Component</em>
       <form onSubmit={handleSubmit}>
         <label>
           Username (minimum 2 characters){" "}
@@ -63,7 +72,8 @@ const SignUp = () => {
           <input
             type="password"
             name="password"
-            autoComplete="on"
+            // added autoComplete attribute per console log message
+            autoComplete="off"
             placeholder="Password"
             value={values.password}
             onChange={handleInputChange}
@@ -74,15 +84,22 @@ const SignUp = () => {
           Confirm Password{" "}
           <input
             type="password"
-            name="passwordConfirmation"
-            autoComplete="on"
+            name="password_confirmation"
+            // added autoComplete attribute per console log message
+            autoComplete="off"
             placeholder="must match password"
-            value={values.passwordConfirmation}
+            value={values.password_confirmation}
             onChange={handleInputChange}
           ></input>
         </label>
         <input type="submit" value="Submit" />
       </form>
+      {/* if there are errors, display them in red */}
+      {errors.map((err) => (
+        <li style={{ color: "red" }} key={err}>
+          {err}
+        </li>
+      ))}
     </div>
   );
 };
