@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const SignUpForm = () => {
+const SignUpForm = ({ setSuccess, setShowSignUpForm }) => {
   const initialValues = {
     username: "",
     password: "",
@@ -44,6 +44,8 @@ const SignUpForm = () => {
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
+        setSuccess(true);
+        setShowSignUpForm(false);
         r.json().then((user) => console.log(user));
       } else {
         // sets errors state with error messages if response is not ok
