@@ -1,9 +1,9 @@
 import { useState } from "react";
 import LogInForm from "./LogInForm";
-import SignUp from "./SignUp";
+import SignUpForm from "./SignUpForm";
 
 const Home = () => {
-  const [showSignUp, setShowSignUp] = useState(false);
+  const [showSignUpForm, setShowSignUpForm] = useState(false);
 
   return (
     <div>
@@ -13,10 +13,10 @@ const Home = () => {
       <br></br>
       <br></br>
       Don't have an account?{" "}
-      {/* button sets showSignUp state to true so it affects conditional rendering below*/}
-      <button onClick={() => setShowSignUp(true)}>Sign Up</button>
+      {/* button sets showSignUpForm state to true so it affects conditional rendering below*/}
+      <button onClick={() => setShowSignUpForm(true)}>Sign Up</button>
       {/* conditional rendering of sign up form to appear when a user clicks the button */}
-      {showSignUp ? <SignUp /> : null}
+      {showSignUpForm ? <SignUpForm /> : null}
     </div>
   );
 };
