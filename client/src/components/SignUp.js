@@ -9,8 +9,9 @@ const SignUp = () => {
 
   // State sets default form input value as object with empty strings.
   const [values, setValues] = useState(initialValues);
-  // State set default error value as empty string
+  // State set default error value as empty array
   const [errors, setErrors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Handles all form inputs with a single onChange handler. Destructured name & value attributes from input fields to reference the key/value pairs when updating state. onChange prop added to each input to call handleInputChange
   const handleInputChange = (e) => {
@@ -32,7 +33,7 @@ const SignUp = () => {
     // console.log(values);
 
     setErrors([]);
-    // setIsLoading(true);
+    setIsLoading(true);
 
     fetch("/signup", {
       method: "POST",
@@ -41,6 +42,7 @@ const SignUp = () => {
       },
       body: JSON.stringify(values),
     }).then((r) => {
+      setIsLoading(false);
       if (r.ok) {
         r.json().then((user) => console.log(user));
       } else {
@@ -92,7 +94,7 @@ const SignUp = () => {
             onChange={handleInputChange}
           ></input>
         </label>
-        <input type="submit" value="Submit" />
+        <input type="submit" value={isLoading ? "Loading..." : "Submit"} />
       </form>
       {/* if there are errors, display them in red */}
       {errors.map((err) => (
