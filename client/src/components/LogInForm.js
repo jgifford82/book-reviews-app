@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const LogInForm = () => {
   const initialValues = {
@@ -8,7 +8,9 @@ const LogInForm = () => {
 
   // State sets default form input value as object with empty strings.
   const [values, setValues] = useState(initialValues);
+  // State set default error value as empty array
   const [errors, setErrors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Handles all form inputs with a single onChange handler. Destructured name & value attributes from input fields to reference the key/value pairs when updating state. onChange prop added to each input to call handleInputChange
   const handleInputChange = (e) => {
@@ -29,23 +31,22 @@ const LogInForm = () => {
     console.log("submitted");
     console.log(values);
 
+    setIsLoading(true);
+
     fetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
-    })
-      .then((r) => r.json())
-      .then((data) => console.log(data));
-    // .then((r) => {
-    //   // setIsLoading(false);
-    //   if (r.ok) {
-    //     r.json().then((user) => onLogin(user));
-    //   } else {
-    //     r.json().then((err) => setErrors(err.errors));
-    //   }
-    // });
+    }).then((r) => {
+      if (r.ok) {
+        setIsLoading(false);
+        // r.json().then((user) => onLogin(user));
+      } else {
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
 
     // clear input fields on submit by updating values state:
     setValues(initialValues);
@@ -53,7 +54,7 @@ const LogInForm = () => {
 
   return (
     <div>
-      <em>LogInForm component</em>
+      <h1>Log in to view & post book reviews!</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Username
@@ -77,7 +78,7 @@ const LogInForm = () => {
             onChange={handleInputChange}
           ></input>
         </label>
-        <input type="submit" value="Log In" />
+        <input type="submit" value={isLoading ? "Loading..." : "Log In"} />
       </form>
     </div>
   );
