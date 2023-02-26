@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SignUpForm from "./SignUpForm";
 
-const SignUpPage = () => {
+const SignUpPage = ({ onLogin }) => {
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -23,6 +23,7 @@ const SignUpPage = () => {
         <SignUpForm
           setSuccess={setSuccess}
           setShowSignUpForm={setShowSignUpForm}
+          onLogin={onLogin}
         />
       ) : null}
     </div>
