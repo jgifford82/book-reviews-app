@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const SignUpForm = ({ setSuccess, setShowSignUpForm }) => {
+const SignUpForm = ({ setSuccess, setShowSignUpForm, onLogin }) => {
   const initialValues = {
     username: "",
     password: "",
@@ -46,7 +46,9 @@ const SignUpForm = ({ setSuccess, setShowSignUpForm }) => {
       if (r.ok) {
         setSuccess(true);
         setShowSignUpForm(false);
-        r.json().then((user) => console.log(user));
+        // r.json().then((user) => console.log(user));
+        // this sends the user info to state through the onLogin callback function
+        r.json().then((user) => onLogin(user));
       } else {
         // console log shows errors as an array:
         // r.json().then((err) => console.log(err));
