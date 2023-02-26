@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const LogInForm = () => {
+const LogInForm = ({ onLogin }) => {
   const initialValues = {
     username: "",
     password: "",
@@ -43,8 +43,9 @@ const LogInForm = () => {
       setIsLoading(false);
       if (r.ok) {
         setErrors([]);
-        r.json().then((data) => console.log(data));
-        // r.json().then((user) => onLogin(user));
+        // r.json().then((user) => console.log(user));
+        // this sends the user info to state through the onLogin callback function
+        r.json().then((user) => onLogin(user));
       } else {
         // console log shows object with error messages:
         // r.json().then((err) => console.log(err));
