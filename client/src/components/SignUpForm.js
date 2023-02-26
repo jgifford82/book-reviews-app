@@ -48,6 +48,8 @@ const SignUpForm = ({ setSuccess, setShowSignUpForm }) => {
         setShowSignUpForm(false);
         r.json().then((user) => console.log(user));
       } else {
+        // console log shows errors as an array:
+        // r.json().then((err) => console.log(err));
         // sets errors state with error messages if response is not ok
         r.json().then((err) => setErrors(err.errors));
       }
