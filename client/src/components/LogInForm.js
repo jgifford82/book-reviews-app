@@ -22,14 +22,14 @@ const LogInForm = () => {
       ...values,
       [name]: value,
     });
-    console.log(values);
+    // console.log(values);
   };
 
   function handleSubmit(e) {
     // prevent page refresh on submit:
     e.preventDefault();
-    console.log("submitted");
-    console.log(values);
+    // console.log("submitted");
+    // console.log(values);
 
     setIsLoading(true);
 
@@ -40,17 +40,23 @@ const LogInForm = () => {
       },
       body: JSON.stringify(values),
     }).then((r) => {
+      setIsLoading(false);
       if (r.ok) {
-        setIsLoading(false);
+        setErrors([]);
+        r.json().then((data) => console.log(data));
         // r.json().then((user) => onLogin(user));
       } else {
-        r.json().then((err) => setErrors(err.errors));
+        // console log shows object with error messages:
+        // r.json().then((err) => console.log(err));
+        r.json().then((err) => setErrors(err.error));
       }
     });
 
     // clear input fields on submit by updating values state:
     setValues(initialValues);
   }
+
+  // console.log(errors);
 
   return (
     <div>
@@ -80,6 +86,8 @@ const LogInForm = () => {
         </label>
         <input type="submit" value={isLoading ? "Loading..." : "Log In"} />
       </form>
+      {/* if there's an error, display it in red */}
+      {errors ? <h3 style={{ color: "red" }}>{errors}</h3> : null}
     </div>
   );
 };
