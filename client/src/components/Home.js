@@ -1,14 +1,14 @@
 import LogInForm from "./LogInForm";
 import SignUpPage from "./SignUpPage";
 
-const Home = ({ onLogin }) => {
+const Home = () => {
   return (
     <div>
       <br></br>
-      <LogInForm onLogin={onLogin} />
+      <LogInForm />
       <br></br>
       <br></br>
-      <SignUpPage onLogin={onLogin} />
+      <SignUpPage />
     </div>
   );
 };
