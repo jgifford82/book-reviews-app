@@ -1,26 +1,29 @@
-import { useState } from "react";
 import "./App.css";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { UserProvider } from "./context/user";
 
 function App() {
-  // save logged in user's details in state
-  const [user, setUser] = useState(null);
+  // save logged in user's details in state, moved to user context instead since it needs to be accessed globally & avoid props drilling
+  // const [user, setUser] = useState(null);
 
-  // saves the logged in user's details in state
-  function handleLogin(user) {
-    setUser(user);
-    // console.log(user);
-  }
+  // // saves the logged in user's details in state. Using useContext instead, so this is no longer needed.
+  // function handleLogin(user) {
+  //   setUser(user);
+  //   console.log(user);
+  // }
 
   return (
     <div className="App">
       <Router>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<Home onLogin={handleLogin} />} />
-        </Routes>
+        {/* wrap components that need access to context data in the UserProvider*/}
+        <UserProvider>
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </UserProvider>
       </Router>
     </div>
   );
