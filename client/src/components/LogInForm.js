@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../context/user";
 
-const LogInForm = ({ onLogin }) => {
+const LogInForm = () => {
   const initialValues = {
     username: "",
     password: "",
@@ -11,6 +12,7 @@ const LogInForm = ({ onLogin }) => {
   // State set default error value as empty array
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { user, setUser } = useContext(UserContext);
 
   // Handles all form inputs with a single onChange handler. Destructured name & value attributes from input fields to reference the key/value pairs when updating state. onChange prop added to each input to call handleInputChange
   const handleInputChange = (e) => {
@@ -45,7 +47,9 @@ const LogInForm = ({ onLogin }) => {
         setErrors([]);
         // r.json().then((user) => console.log(user));
         // this sends the user info to state through the onLogin callback function
-        r.json().then((user) => onLogin(user));
+        // r.json().then((user) => setUser(user));
+        // this sends the user info to state through context instead of previous onLogin callback function
+        r.json().then((user) => setUser(user));
       } else {
         // console log shows object with error messages:
         // r.json().then((err) => console.log(err));
