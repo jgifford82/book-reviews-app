@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     render json: user
   end
 
-  # POST new user
+  # POST new user (sign up)
   def create
     user = User.create!(user_params)
     # session[:user_id] = user.id
@@ -16,6 +16,11 @@ class UsersController < ApplicationController
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
+  end
+
+  # GET current user (auto login)
+  def show
+    render json: @current_user
   end
 
   private
