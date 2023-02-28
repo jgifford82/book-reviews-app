@@ -28,6 +28,9 @@ const NavBar = () => {
         <Button color="inherit" to="/" component={Link}>
           Home
         </Button>
+        <Button color="inherit" to="/books" component={Link}>
+          Books
+        </Button>
         <Button
           color="inherit"
           // to="/logout"
