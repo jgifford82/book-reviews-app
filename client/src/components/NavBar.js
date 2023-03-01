@@ -30,20 +30,26 @@ const NavBar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Book Reviews
         </Typography>
-        <Button color="inherit" to="/" component={Link}>
+        {/* <Button color="inherit" to="/" component={Link}>
           Home
-        </Button>
-        <Button color="inherit" to="/books" component={Link}>
-          Books
-        </Button>
-        <Button
-          color="inherit"
-          // to="/logout"
-          component={Link}
-          onClick={handleLogout}
-        >
-          Log out
-        </Button>
+        </Button> */}
+        {/* books button displays in navbar only if a user is logged in */}
+        {user && (
+          <Button color="inherit" to="/books" component={Link}>
+            Books
+          </Button>
+        )}
+        {/* logout button displays in navbar only if a user is logged in */}
+        {user && (
+          <Button
+            color="inherit"
+            // to="/logout"
+            component={Link}
+            onClick={handleLogout}
+          >
+            Log out
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );
