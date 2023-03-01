@@ -25,7 +25,7 @@ function App() {
         r.json().then((user) => setUser(user));
       }
     });
-  }, [setUser]);
+  }, []);
 
   return (
     <div className="App">
