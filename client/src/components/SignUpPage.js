@@ -3,25 +3,26 @@ import SignUpForm from "./SignUpForm";
 
 const SignUpPage = () => {
   const [showSignUpForm, setShowSignUpForm] = useState(false);
-  const [success, setSuccess] = useState(false);
+  // const [success, setSuccess] = useState(false);
 
   // button sets showSignUpForm state to true so it affects conditional rendering below
   const button = (
     <button onClick={() => setShowSignUpForm(true)}>Sign Up</button>
   );
   const noAccount = <div>Don't have an account? {button}</div>;
-  const successText = (
-    <h1 style={{ color: "green" }}>Sign up successful! Please log in</h1>
-  );
+  // const successText = (
+  //   <h1 style={{ color: "green" }}>Sign up successful! Please log in</h1>
+  // );
 
   return (
     <div>
       {/* conditional rendering of text & button depending on whether or not a user is signed up */}
-      {success ? successText : noAccount}
+      {/* {success ? successText : noAccount} */}
+      {noAccount}
       {/* conditional rendering of sign up form to appear when a user clicks the button */}
       {showSignUpForm ? (
         <SignUpForm
-          setSuccess={setSuccess}
+          // setSuccess={setSuccess}
           setShowSignUpForm={setShowSignUpForm}
         />
       ) : null}
