@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -10,10 +10,15 @@ import { UserContext } from "../context/user";
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
 
+  const navigate = useNavigate();
+
   function handleLogout() {
     fetch("/logout", {
       method: "DELETE",
-    }).then(() => setUser(null));
+    }).then(() => {
+      setUser(null);
+      navigate("/");
+    });
     // .then(() => setUser(null));
     // .then(() => console.log("logout clicked"));
     // console.log(user);
