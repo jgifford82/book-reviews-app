@@ -69,9 +69,6 @@ const SignUpForm = ({ setShowSignUpForm }) => {
 
     // clear input fields on submit by updating values state:
     setValues(initialValues);
-
-    // shows current user for auto-login
-    console.log(user);
   }
 
   return (
