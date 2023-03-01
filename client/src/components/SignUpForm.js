@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { UserContext } from "../context/user";
 import { useNavigate } from "react-router-dom";
 
-const SignUpForm = ({ setSuccess, setShowSignUpForm }) => {
+const SignUpForm = ({ setShowSignUpForm }) => {
   const initialValues = {
     username: "",
     password: "",
@@ -49,7 +49,7 @@ const SignUpForm = ({ setSuccess, setShowSignUpForm }) => {
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        setSuccess(true);
+        // setSuccess(true);
         setShowSignUpForm(false);
         // r.json().then((user) => console.log(user));
         // this sends the user info to state through the onLogin callback function
