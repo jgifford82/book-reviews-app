@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserContext } from "./context/user";
 
 function App() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   // save logged in user's details in state, moved to user context instead since it needs to be accessed globally & avoid props drilling
   // const [user, setUser] = useState(null);
 
@@ -21,11 +21,11 @@ function App() {
     // auto-login
     fetch("/me").then((r) => {
       if (r.ok) {
-        r.json().then((user) => console.log(user));
-        // r.json().then((user) => setUser(user));
+        // r.json().then((user) => console.log(user));
+        r.json().then((user) => setUser(user));
       }
     });
-  }, []);
+  }, [setUser]);
 
   return (
     <div className="App">
