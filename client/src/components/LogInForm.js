@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../context/user";
+import { useNavigate } from "react-router-dom";
 
 const LogInForm = () => {
   const initialValues = {
@@ -13,6 +14,8 @@ const LogInForm = () => {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { user, setUser } = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   // Handles all form inputs with a single onChange handler. Destructured name & value attributes from input fields to reference the key/value pairs when updating state. onChange prop added to each input to call handleInputChange
   const handleInputChange = (e) => {
@@ -49,7 +52,10 @@ const LogInForm = () => {
         // this sends the user info to state through the onLogin callback function
         // r.json().then((user) => setUser(user));
         // this sends the user info to state through context instead of previous onLogin callback function
-        r.json().then((user) => setUser(user));
+        r.json().then((user) => {
+          setUser(user);
+          navigate("/books");
+        });
       } else {
         // console log shows object with error messages:
         // r.json().then((err) => console.log(err));
