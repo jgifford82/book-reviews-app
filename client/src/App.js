@@ -34,6 +34,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
+          {/* if user is truthy, && operator returns the route so a user that's logged in can see the books */}
           {user && <Route path="/books" element={<BooksList />} />}
         </Routes>
       </Router>
