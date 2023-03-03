@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import BooksForm from "./BooksForm";
 
 const BooksList = () => {
   const [books, setBooks] = useState([]);
@@ -23,7 +24,13 @@ const BooksList = () => {
       Genre: {book.genre}
     </ul>
   ));
-  return <div>Books!!!{renderBooks}</div>;
+  return (
+    <div>
+      Books!!!
+      <BooksForm />
+      {renderBooks}
+    </div>
+  );
 };
 
 export default BooksList;
