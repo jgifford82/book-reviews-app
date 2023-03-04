@@ -18,12 +18,13 @@ function App() {
   // }
   const [books, setBooks] = useState([]);
 
+  // Fetches books data (containing reviews for each book) from backend server & sets state with that data.
   useEffect(() => {
     fetch("/books")
       .then((r) => r.json())
       //   .then((data) => console.log(data));
       .then((data) => setBooks(data));
-  }, [books]);
+  }, []);
 
   // console.log(books);
 
@@ -46,7 +47,6 @@ function App() {
   return (
     <div className="App">
       <Router>
-        {/* wrap components that need access to context data in the UserProvider*/}
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
