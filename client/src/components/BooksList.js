@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BooksForm from "./BooksForm";
 
-const BooksList = () => {
-  const [books, setBooks] = useState([]);
+const BooksList = ({ books, onAddBook }) => {
+  // const [books, setBooks] = useState([]);
 
-  useEffect(() => {
-    fetch("/books")
-      .then((r) => r.json())
-      //   .then((data) => console.log(data));
-      .then((data) => setBooks(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch("/books")
+  //     .then((r) => r.json())
+  //     //   .then((data) => console.log(data));
+  //     .then((data) => setBooks(data));
+  // }, []);
 
-  console.log(books);
+  // console.log(books);
 
   const renderBooks = books.map((book) => (
     <ul key={book.id}>
@@ -27,7 +27,7 @@ const BooksList = () => {
   return (
     <div>
       Books!!!
-      <BooksForm />
+      <BooksForm onAddBook={onAddBook} />
       {renderBooks}
     </div>
   );
