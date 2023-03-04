@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const BooksForm = () => {
+const BooksForm = ({ onAddBook }) => {
   const initialValues = {
     title: "",
     author: "",
@@ -23,9 +23,30 @@ const BooksForm = () => {
     console.log(values);
   };
 
+  function handleSubmit(e) {
+    // prevent page refresh on submit:
+    e.preventDefault();
+    // console.log("submitted");
+    // console.log(values);
+
+    fetch("/books", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+      .then((r) => r.json())
+      .then((data) => console.log(data));
+    //   .then((newBook) => onAddBook(newBook));
+
+    // clear input fields on submit by updating values state:
+    setValues(initialValues);
+  }
+
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>Add new book:</label>
         <input
           type="text"
