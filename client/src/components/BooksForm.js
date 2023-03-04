@@ -9,6 +9,7 @@ const BooksForm = ({ onAddBook }) => {
 
   // State sets default form input value as object with empty strings.
   const [values, setValues] = useState(initialValues);
+  const [errors, setErrors] = useState([]);
 
   // Handles all form inputs with a single onChange handler. Destructured name & value attributes from input fields to reference the key/value pairs when updating state. onChange prop added to each input to call handleInputChange
   const handleInputChange = (e) => {
@@ -35,10 +36,17 @@ const BooksForm = ({ onAddBook }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
-    })
-      .then((r) => r.json())
-      .then((data) => console.log(data));
-    //   .then((newBook) => onAddBook(newBook));
+    }).then((r) => {
+      if (r.ok) {
+        setErrors([]);
+        r.json().then((newBook) => onAddBook(newBook));
+      } else {
+        // console log shows errors as an array:
+        // r.json().then((err) => console.log(err));
+        // sets errors state with error messages if response is not ok
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
 
     // clear input fields on submit by updating values state:
     setValues(initialValues);
@@ -71,6 +79,12 @@ const BooksForm = ({ onAddBook }) => {
         ></input>
         <input type="submit" value="Submit"></input>
       </form>
+      {/* if there are errors, display them in red */}
+      {errors.map((err) => (
+        <li style={{ color: "red" }} key={err}>
+          {err}
+        </li>
+      ))}
     </div>
   );
 };
