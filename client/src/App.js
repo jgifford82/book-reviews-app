@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./App.css";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
@@ -16,6 +16,22 @@ function App() {
   //   setUser(user);
   //   console.log(user);
   // }
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    fetch("/books")
+      .then((r) => r.json())
+      //   .then((data) => console.log(data));
+      .then((data) => setBooks(data));
+  }, [books]);
+
+  // console.log(books);
+
+  // Updates state responsible for rendering books when new book is added, which refreshes the page to display new book. Callback function passed as a prop to child (BooksForm) so the new book can be sent up to parent (BooksList).
+  function handleAddBook(newBook) {
+    // console.log("In BooksList:", newBook);
+    setBooks([...books, newBook]);
+  }
 
   useEffect(() => {
     // auto-login
@@ -35,7 +51,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           {/* if user is truthy, && operator returns the route so a user that's logged in can see the books */}
-          {user && <Route path="/books" element={<BooksList />} />}
+          {user && (
+            <Route
+              path="/books"
+              element={<BooksList books={books} onAddBook={handleAddBook} />}
+            />
+          )}
         </Routes>
       </Router>
     </div>
