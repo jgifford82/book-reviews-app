@@ -3,8 +3,8 @@ class Book < ApplicationRecord
     has_many :reviews
     has_many :users, through: :reviews
 
-# makes sure title, authhor, genre exists & title is unique
-    validates :title, presence: true, uniqueness: true
+# makes sure title, author, genre exists & title is unique regardless of capitalization
+    validates :title, presence: true, uniqueness: { case_sensitive: false }
     validates :author, presence: true
     validates :genre, presence: true
 
