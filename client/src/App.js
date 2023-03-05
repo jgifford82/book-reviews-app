@@ -31,7 +31,7 @@ function App() {
   // Updates state responsible for rendering books when new book is added, which refreshes the page to display new book. Callback function passed as a prop to child (BooksForm) so the new book can be sent up to parent (BooksList).
   function handleAddBook(newBook) {
     // console.log("In BooksList:", newBook);
-    setBooks([...books, newBook]);
+    setBooks([newBook, ...books]);
   }
 
   useEffect(() => {
