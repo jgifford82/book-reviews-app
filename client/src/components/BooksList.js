@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import BooksForm from "./BooksForm";
 
 const BooksList = ({ books, onAddBook }) => {
+  // moved books state & useEffect with fetch to App since other components will need access to this initial fetch request.
   // const [books, setBooks] = useState([]);
 
   // useEffect(() => {
@@ -11,7 +12,6 @@ const BooksList = ({ books, onAddBook }) => {
   //     //   .then((data) => console.log(data));
   //     .then((data) => setBooks(data));
   // }, []);
-
   // console.log(books);
 
   const renderBooks = books.map((book) => (
