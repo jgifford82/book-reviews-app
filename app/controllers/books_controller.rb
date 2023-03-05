@@ -1,8 +1,9 @@
 class BooksController < ApplicationController
 
-    # GET all books alphabetically by title
+    # GET all books alphabetically by title regardless of capitalization
     def index
-        book = Book.all.order(:title) 
+        # book = Book.all.order(:title) 
+        book = Book.order('lower(title)').all
         render json: book
     end
 
