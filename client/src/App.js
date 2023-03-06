@@ -3,6 +3,7 @@ import "./App.css";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import BooksList from "./components/BooksList";
+import ReviewsList from "./components/BookReviewsList";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserContext } from "./context/user";
 
@@ -57,6 +58,7 @@ function App() {
               element={<BooksList books={books} onAddBook={handleAddBook} />}
             />
           )}
+          <Route path="/books/:id" element={<ReviewsList books={books}/>} />
         </Routes>
       </Router>
     </div>
