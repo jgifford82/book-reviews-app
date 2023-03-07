@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
   
   resources :reviews, only: [:index]
-  resources :books, only: [:index, :create]
+
+  resources :books, only: [:index, :create, :show] do
+    # nested resource for reviews
+    resources :reviews, only: [:show, :index]
+  end
+  
   resources :users, only: [:index]
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"
