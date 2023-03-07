@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     # GET all books alphabetically by title regardless of capitalization
     def index
@@ -13,9 +14,19 @@ class BooksController < ApplicationController
         render json: book, status: :created
     end
 
+    # GET a specific book including nested reviews data
+    def show
+        book = Book.find(params[:id])
+        render json: book
+    end
+      
 private 
     def book_params
         params.permit(:title, :author, :genre)
+    end
+
+    def render_not_found_response
+        render json: { error: "Book not found" }, status: :not_found
     end
 
 end
