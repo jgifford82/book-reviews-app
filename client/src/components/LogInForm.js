@@ -67,7 +67,7 @@ const LogInForm = () => {
     setValues(initialValues);
 
     // shows current user for auto-login
-    console.log(user);
+    // console.log(user);
   }
 
   // console.log(errors);
