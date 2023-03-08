@@ -3,6 +3,6 @@ class ReviewSerializer < ActiveModel::Serializer
   # list of attributes that we want to be included in JSON rendered by controller methods
   attributes :id, :comment, :user_id, :book_id, :user
 
+  #belongs_to along with user attribute above returns user data in json. access username associated with each review.
   belongs_to :user
-
 end
