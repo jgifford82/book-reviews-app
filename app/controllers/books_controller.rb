@@ -1,6 +1,8 @@
 class BooksController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
+    skip_before_action :authorize, only: [:index]
+
     # GET all books alphabetically by title regardless of capitalization
     def index
         # book = Book.all.order(:title) 
