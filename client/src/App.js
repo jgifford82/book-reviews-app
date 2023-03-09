@@ -35,6 +35,7 @@ function App() {
     setBooks([newBook, ...books]);
   }
 
+  // don't need setUser in dependency array, but added it in to clear warning on browser console. removing dependency array led to continuous fetches.
   useEffect(() => {
     // auto-login
     fetch("/me").then((r) => {
@@ -43,7 +44,7 @@ function App() {
         r.json().then((user) => setUser(user));
       }
     });
-  }, []);
+  }, [setUser]);
 
   return (
     <div className="App">
@@ -58,7 +59,7 @@ function App() {
               element={<BooksList books={books} onAddBook={handleAddBook} />}
             />
           )}
-          <Route path="/books/:id" element={<ReviewsList books={books}/>} />
+          <Route path="/books/:id" element={<ReviewsList books={books} />} />
         </Routes>
       </Router>
     </div>
