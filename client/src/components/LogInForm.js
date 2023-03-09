@@ -13,6 +13,7 @@ const LogInForm = () => {
   // State set default error value as empty array
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  // removed user variable to clear warning in browser console
   const { setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
