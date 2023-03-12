@@ -3,4 +3,6 @@ class Review < ApplicationRecord
     # belongs_to must be singular for the macro to work properly, otherwise the inferred class will be wrongly pluralized too.
     belongs_to :book
     belongs_to :user
+
+    validates :comment, presence: true, length: { minimum: 2 }
 end
