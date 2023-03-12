@@ -18,10 +18,15 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET current user (auto login)
+  # GET user if the user's id is in params, otherwise get the logged in user (the user_id saved in session for auto login)
   def show
     # render json: @current_user
-    user = User.find_by!(id: session[:user_id])
+    # byebug
+    if params[:id]
+      user = User.find(params[:id])
+    else 
+      user = User.find_by!(id: session[:user_id])
+    end
     render json: user, status: 200
   end
 
