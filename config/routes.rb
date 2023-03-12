@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :books, only: [:index, :create, :show] do
     # nested resource for reviews
-    resources :reviews, only: [:show, :index]
+    resources :reviews, only: [:show, :index, :create]
   end
   
   resources :users, only: [:index, :show]
