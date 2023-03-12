@@ -1,3 +1,4 @@
+import BookReviewsForm from "./BookReviewsForm";
 import { Link, useParams } from "react-router-dom";
 
 const BookReviewsList = ({ books }) => {
@@ -25,6 +26,7 @@ const BookReviewsList = ({ books }) => {
 
   return (
     <div>
+      <BookReviewsForm />
       <h1>
         Reviews for
         <br></br>
