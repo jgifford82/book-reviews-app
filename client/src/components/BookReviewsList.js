@@ -1,7 +1,7 @@
 import BookReviewsForm from "./BookReviewsForm";
 import { Link, useParams } from "react-router-dom";
 
-const BookReviewsList = ({ books }) => {
+const BookReviewsList = ({ books, onAddReview }) => {
   // console.log(books);
 
   // useParams returns object with key/value pairs. destructured the id value to use it in foundBook variable
@@ -13,7 +13,7 @@ const BookReviewsList = ({ books }) => {
   // find all reviews with book id that equals the params id, which had to be converted from string to number using parseInt.
   const foundBook = books.find(({ id }) => id === parseInt(params.id));
   // console.log(foundBook);
-  console.log(foundBook.reviews);
+  // console.log(foundBook.reviews);
 
   const renderReviews = foundBook.reviews.map((review) => (
     <li key={review.id}>
@@ -26,7 +26,7 @@ const BookReviewsList = ({ books }) => {
 
   return (
     <div>
-      <BookReviewsForm />
+      <BookReviewsForm onAddReview={onAddReview} />
       <h1>
         Reviews for
         <br></br>
