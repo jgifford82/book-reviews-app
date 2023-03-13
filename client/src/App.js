@@ -36,6 +36,23 @@ function App() {
     setBooks([newBook, ...books]);
   }
 
+  // Updates state responsible for rendering books when new review is added, which refreshes the page to display new review. Callback function passed as a prop to child (BookReviewsForm) so the new book can be sent up to parent (BookRevewsList).
+  function handleAddReview(newReview) {
+    // console.log("In BookReviewsList:", newReview);
+    // map over books. if the book id matches the new review's foreign key for book id, it will copy the book and nested reviews, and add in the new review. Otherwise, it will return the existing book.
+    const updateBooks = books.map((book) => {
+      if (book.id === newReview.book_id) {
+        return {
+          ...book,
+          reviews: [newReview, ...book.reviews],
+        };
+      }
+      return book;
+    });
+    // console.log(updateBooks);
+    setBooks(updateBooks);
+  }
+
   // don't need setUser in dependency array, but added it in to clear warning on browser console. removing dependency array led to continuous fetches.
   useEffect(() => {
     // auto-login
@@ -60,7 +77,12 @@ function App() {
               element={<BooksList books={books} onAddBook={handleAddBook} />}
             />
           )}
-          <Route path="/books/:id" element={<ReviewsList books={books} />} />
+          <Route
+            path="/books/:id"
+            element={
+              <ReviewsList books={books} onAddReview={handleAddReview} />
+            }
+          />
           <Route path="/users/:id" element={<UserBooksList />} />
         </Routes>
       </Router>
