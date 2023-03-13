@@ -38,9 +38,9 @@ class ReviewsController < ApplicationController
       end
 
 private
-    # require method ensures that a specific parameter is present, and if it's not provided, the require method throws an error
+
     def review_params
-        params.require(:review).permit(:comment)
+        params.permit(:comment)
     end
 
     def render_not_found_response
