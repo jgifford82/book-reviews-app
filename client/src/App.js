@@ -83,7 +83,7 @@ function App() {
               <ReviewsList books={books} onAddReview={handleAddReview} />
             }
           />
-          <Route path="/users/:id" element={<UserBooksList />} />
+          <Route path="/users/:id" element={<UserBooksList books={books} />} />
         </Routes>
       </Router>
     </div>
