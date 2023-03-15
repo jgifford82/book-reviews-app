@@ -15,14 +15,17 @@ const BookReviewsList = ({ books, onAddReview }) => {
   // console.log(foundBook);
   // console.log(foundBook.reviews);
 
-  const renderReviews = foundBook.reviews.map((review) => (
-    <li key={review.id}>
-      <span style={{ fontWeight: "bold" }}>
-        <Link to={`/users/${review.user.id}`}>{review.user.username}:</Link>
-      </span>{" "}
-      "{review.comment}"
-    </li>
-  ));
+  // foundBook && is a conditional check to ensure foundBook exists before trying to access its properties, otherwise don't access it if it's undefined, which prevents errors on page refresh
+  const renderReviews =
+    foundBook &&
+    foundBook.reviews.map((review) => (
+      <li key={review.id}>
+        <span style={{ fontWeight: "bold" }}>
+          <Link to={`/users/${review.user.id}`}>{review.user.username}:</Link>
+        </span>{" "}
+        "{review.comment}"
+      </li>
+    ));
 
   return (
     <div>
@@ -30,9 +33,10 @@ const BookReviewsList = ({ books, onAddReview }) => {
       <h1>
         Reviews for
         <br></br>
-        <em>{foundBook.title}</em>
+        {/* Conditional rendering of title & genre allows the page to load if it's refreshed, otherwise it will error out since books state might not be loaded yet*/}
+        <em>{foundBook ? foundBook.title : ""}</em>
       </h1>
-      <h3>Genre: {foundBook.genre}</h3>
+      <h3>Genre: {foundBook ? foundBook.genre : ""}</h3>
       {renderReviews}
     </div>
   );
