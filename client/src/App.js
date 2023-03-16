@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import BooksList from "./components/BooksList";
 import ReviewsList from "./components/BookReviewsList";
 import UserBooksList from "./components/UserBooksList";
+import MyReviewsList from "./components/MyReviewsList";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserContext } from "./context/user";
 
@@ -84,6 +85,8 @@ function App() {
             }
           />
           <Route path="/users/:id" element={<UserBooksList books={books} />} />
+          {/* if user is truthy, && operator returns the route so a user that's logged in can see their reviews list */}
+          {user && <Route path="/my-reviews" element={<MyReviewsList />} />}
         </Routes>
       </Router>
     </div>
