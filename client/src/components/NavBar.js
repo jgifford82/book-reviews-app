@@ -39,6 +39,12 @@ const NavBar = () => {
             Books
           </Button>
         )}
+        {/* My Reviews button displays in navbar only if a user is logged in */}
+        {user && (
+          <Button color="inherit" to="/my-reviews" component={Link}>
+            My Reviews
+          </Button>
+        )}
         {/* logout button displays in navbar only if a user is logged in */}
         {user && (
           <Button
