@@ -1,7 +1,11 @@
-import React from "react";
+import MyReviewsCard from "./MyReviewsCard";
 
 const MyReviewsList = () => {
-  return <div>MyReviewsList</div>;
+  return (
+    <div>
+      <MyReviewsCard />
+    </div>
+  );
 };
 
 export default MyReviewsList;
