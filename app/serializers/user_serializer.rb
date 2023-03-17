@@ -5,4 +5,9 @@ class UserSerializer < ActiveModel::Serializer
 
   # access the books a user has reviewed
   has_many :books
+
+  # access the reviews a user has posted
+  # custom UserReviewSerializer only returns specific attributes in JSON so it's no longer returning unwanted attributes like created_at, updated_at, & password digest
+  has_many :reviews, serializer: UserReviewSerializer
+
 end
