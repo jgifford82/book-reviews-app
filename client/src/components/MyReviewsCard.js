@@ -6,7 +6,7 @@ const MyReviewsCard = () => {
   const { user } = useContext(UserContext);
   console.log(user);
 
-  // Map through user's reviews to render each review comment book title where the title matches the review's book id.
+  // Map through user's reviews to render each review comment book title where the title matches the review's book id. Display a delete button next to each review.
   const renderUserReviewedBooks = user.reviews.map((review) => {
     const bookTitle = user.books.find(
       (book) => book.id === review.book_id
@@ -14,7 +14,7 @@ const MyReviewsCard = () => {
     return (
       <div key={review.id}>
         <h3>{bookTitle}</h3>
-        <p>{review.comment}</p>
+        <button>X</button> <span>{review.comment}</span>
       </div>
     );
   });
