@@ -21,7 +21,7 @@ const BooksForm = ({ onAddBook }) => {
       ...values,
       [name]: value,
     });
-    console.log(values);
+    // console.log(values);
   };
 
   function handleSubmit(e) {
