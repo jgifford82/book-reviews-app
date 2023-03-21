@@ -73,22 +73,22 @@ function App() {
     setUser(updatedUser);
   }
 
-  // function handleDeleteReview(deletedReview) {
-  //   console.log("handle delete Review", deletedReview);
-  //   // newCitites filters cities array down to all cities whose id doesn't match the deleted id.
-  //   const newCities = cities.map((city) => {
-  //     // map over cities. if the city id matches the deleted event's foreign key for city id, it will copy the city and filter down the city's events those whose id don't match the deleted event's id.
-  //     if (city.id === deletedEvent.city_id) {
-  //       return {
-  //         ...city,
-  //         events: city.events.filter((event) => event.id !== deletedEvent.id),
-  //       };
-  //     }
-  //     return city;
-  //   });
-  //   // console.log(newCities);
-  //   setCities(newCities);
-  // }
+  function handleDeleteReview(deletedReview) {
+    console.log("handle delete Review", deletedReview);
+    //   // newBooks filters books array down to all books whose id doesn't match the deleted id.
+    //   const newBooks = books.map((book) => {
+    //     // map over books. if the book id matches the deleted review's foreign key for book id, it will copy the book and filter down the book's reviews to those whose id don't match the deleted review's id.
+    //     if (book.id === deletedReview.book_id) {
+    //       return {
+    //         ...book,
+    //         reviews: book.reviews.filter((review) => review.id !== deletedReview.id),
+    //       };
+    //     }
+    //     return book;
+    //   });
+    //   // console.log(newBooks);
+    //   setBooks(newBooks);
+  }
 
   return (
     <div className="App">
@@ -111,7 +111,12 @@ function App() {
           />
           <Route path="/users/:id" element={<UserBooksList books={books} />} />
           {/* if user is truthy, && operator returns the route so a user that's logged in can see their reviews list */}
-          {user && <Route path="/my-reviews" element={<MyReviewsList />} />}
+          {user && (
+            <Route
+              path="/my-reviews"
+              element={<MyReviewsList onDeleteReview={handleDeleteReview} />}
+            />
+          )}
         </Routes>
       </Router>
     </div>
