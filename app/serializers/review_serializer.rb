@@ -5,4 +5,7 @@ class ReviewSerializer < ActiveModel::Serializer
 
   #belongs_to along with user attribute above returns user data in json. access username associated with each review.
   belongs_to :user
+
+  # when a new review is posted, the json response includes the new review's associated book title. that way, it's available to display in the MyReviews page without having to refresh the page.
+  belongs_to :book
 end
