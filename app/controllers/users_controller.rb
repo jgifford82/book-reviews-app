@@ -19,6 +19,7 @@ class UsersController < ApplicationController
   end
 
   # GET user if the user's id is in params, otherwise get the logged in user (the user_id saved in session for auto login)
+  # json response includes all associated data for the logged in user (reviews and books). this allows the logged in user to see all their reviews on My Reviews page without refreshing, even if they just posted a new review
   def show
     # render json: @current_user
     # byebug
@@ -27,7 +28,7 @@ class UsersController < ApplicationController
     else 
       user = User.find_by!(id: session[:user_id])
     end
-    render json: user, status: 200
+    render json: user, include: "*", status: 200
   end
 
   private
