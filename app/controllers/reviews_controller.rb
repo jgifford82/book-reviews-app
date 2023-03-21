@@ -1,7 +1,4 @@
 class ReviewsController < ApplicationController
-  # ensures user is logged in before deleting a review   
-  before_action :authorize
-
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     # # GET all reviews
@@ -43,13 +40,14 @@ class ReviewsController < ApplicationController
     # DELETE a specific review belonging to the logged in user
     # find the review using the id parameter in the URL
     # check if the review belongs to the logged in user by comparing the user_id of the review to the user_id stored in the session
-    # if they match, destroy the review, otherwise send an unauthorized response
+    # if they match, destroy the review and return success message json, otherwise send an unauthorized response
+    # removed skip before action authorize above since that's already being done in the application controller
     def destroy
       review = Review.find(params[:id])
+      # byebug
       if review.user_id == session[:user_id]
         review.destroy
-        head :no_content
-        # render json: {}, status: 200
+        render json: { status: "success" }, status: 200
       else
         render json: { error: "You are not authorized to delete this review" }, status: :unauthorized
       end
