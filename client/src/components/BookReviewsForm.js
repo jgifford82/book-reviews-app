@@ -41,7 +41,13 @@ const BookReviewsForm = ({ onAddReview }) => {
         // console log shows errors as an array:
         // r.json().then((err) => console.log(err));
         // sets errors state with error messages if response is not ok
-        r.json().then((err) => setErrors(err.errors));
+        r.json().then((err) => {
+          if (err.errors) {
+            setErrors(err.errors);
+          } else {
+            setErrors([err.error]);
+          }
+        });
       }
     });
 
