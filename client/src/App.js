@@ -103,6 +103,27 @@ function App() {
     setBooks(updateBooks);
   }
 
+  function handleEditReview(editReview) {
+    console.log("In ReviewsList:", editReview);
+    // map over all books. if the book id matches edited review's foreign key for book id, it'll replace existing review as long as the review id matches the id of the review being edited.
+    // const updateBooks = books.map((book) => {
+    //   if (book.id === editReview.book_id) {
+    //     return {
+    //       ...book,
+    //       reviews: book.reviews.map((review) => {
+    //         if (review.id === editReview.id) {
+    //           return editReview;
+    //         }
+    //         return review;
+    //       }),
+    //     };
+    //   }
+    //   return book;
+    // });
+    // setBooks(updateBooks);
+    // console.log(updateBooks);
+  }
+
   return (
     <div className="App">
       <Router>
@@ -127,7 +148,12 @@ function App() {
           {user && (
             <Route
               path="/my-reviews"
-              element={<MyReviewsList onDeleteReview={handleDeleteReview} />}
+              element={
+                <MyReviewsList
+                  onDeleteReview={handleDeleteReview}
+                  onEditReview={handleEditReview}
+                />
+              }
             />
           )}
         </Routes>
