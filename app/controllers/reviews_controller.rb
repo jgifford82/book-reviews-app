@@ -47,7 +47,7 @@ class ReviewsController < ApplicationController
       # byebug
       if review.user_id == session[:user_id]
         review.destroy
-        render json: { status: "success" }, status: 200
+        render json: review, status: 200
       else
         render json: { error: "You are not authorized to delete this review" }, status: :unauthorized
       end
