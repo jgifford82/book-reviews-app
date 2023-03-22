@@ -1,12 +1,6 @@
 class ReviewsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
-    # # GET all reviews
-    # def index
-    #     review = Review.all 
-    #     render json: review
-    # end
-
     # GET reviews for a specific book if the matching book id is found, otherwise show error
     def index
         if params[:book_id]
@@ -40,7 +34,7 @@ class ReviewsController < ApplicationController
     # DELETE a specific review belonging to the logged in user
     # find the review using the id parameter in the URL
     # check if the review belongs to the logged in user by comparing the user_id of the review to the user_id stored in the session
-    # if they match, destroy the review and return success message json, otherwise send an unauthorized response
+    # if they match, destroy the review and return review json, otherwise send an unauthorized response
     # removed skip before action authorize above since that's already being done in the application controller
     def destroy
       review = Review.find(params[:id])
@@ -52,6 +46,22 @@ class ReviewsController < ApplicationController
         render json: { error: "You are not authorized to delete this review" }, status: :unauthorized
       end
     end
+
+  # PATCH /books/:book_id/reviews/:id
+  # update a specific review belonging to the logged in user
+  # find the review using the id parameter in the URL
+  # check if the review belongs to the logged in user by comparing the user_id of the review to the user_id stored in the session
+  # if they match, update the review and return review json, otherwise send an unauthorized response
+  def update
+    review = Review.find_by(id: params[:id])
+    if review.user_id == session[:user_id]
+      review.update(review_params)
+      render json: review, status: 200
+    else
+      render json: { error: "You are not authorized to edit this review" }, status: :unauthorized
+    end
+  end
+
 
 private
 
