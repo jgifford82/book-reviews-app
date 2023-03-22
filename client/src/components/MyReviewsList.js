@@ -1,11 +1,7 @@
 import MyReviewsCard from "./MyReviewsCard";
-import { useContext, useState } from "react";
-import { UserContext } from "../context/user";
+import { useState } from "react";
 
-const MyReviewsList = (onDeleteReview) => {
-  const { user } = useContext(UserContext);
-  console.log(user);
-
+const MyReviewsList = ({ onDeleteReview }) => {
   const [errors, setErrors] = useState([]);
 
   function handleDeleteClick(e, review) {
@@ -21,17 +17,19 @@ const MyReviewsList = (onDeleteReview) => {
     }).then((r) => {
       if (r.ok) {
         setErrors([]);
-        r.json().then((data) => console.log(data));
-        // r.json().then((deletedReview) => onDeleteReview(deletedReview));
+        // r.json().then((data) => console.log(data));
+        r.json().then((deletedReview) => onDeleteReview(deletedReview));
       } else {
-        r.json().then((err) => console.log(err));
-        // r.json().then((err) => setErrors(err.errors));
+        // r.json().then((err) => console.log(err));
+        r.json().then((err) => setErrors(err.error));
       }
     });
   }
 
   return (
     <div>
+      {/* if there's an error, display it in red */}
+      {errors ? <h3 style={{ color: "red" }}>{errors}</h3> : null}
       <MyReviewsCard onDeleteClick={handleDeleteClick} />
     </div>
   );
