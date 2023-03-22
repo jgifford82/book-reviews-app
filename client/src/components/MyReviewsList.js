@@ -1,7 +1,7 @@
 import MyReviewsCard from "./MyReviewsCard";
 import { useState } from "react";
 
-const MyReviewsList = ({ onDeleteReview }) => {
+const MyReviewsList = ({ onDeleteReview, onEditReview }) => {
   const [errors, setErrors] = useState([]);
 
   function handleDeleteClick(e, review) {
@@ -30,7 +30,10 @@ const MyReviewsList = ({ onDeleteReview }) => {
     <div>
       {/* if there's an error, display it in red */}
       {errors ? <h3 style={{ color: "red" }}>{errors}</h3> : null}
-      <MyReviewsCard onDeleteClick={handleDeleteClick} />
+      <MyReviewsCard
+        onDeleteClick={handleDeleteClick}
+        onEditReview={onEditReview}
+      />
     </div>
   );
 };
