@@ -1,27 +1,58 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../context/user";
+import MyReviewsEditForm from "./MyReviewsEditForm";
 
-const MyReviewsCard = ({ onDeleteClick }) => {
+const MyReviewsCard = ({ onDeleteClick, onEditReview }) => {
   // user variable from UserContext allows access to the list of logged in user's books & reviews
   const { user } = useContext(UserContext);
   console.log(user);
 
-  // Map through user's reviews to render each review comment & book title. Display a delete button next to each review.
+  const [isEdit, setIsEdit] = useState(false);
+
+  // edit button click toggles state so edit form is displayed when isEdit state is true
+  function handleEditClick(e, review) {
+    // console.log("clicked");
+    setIsEdit(!isEdit);
+    // console.log(isEdit);
+  }
+
+  // Map through user's reviews to render each review comment & book title. Display a delete button & edit button next to each review.
   const renderUserReviewedBooks = user.reviews.map((review) => {
     return (
       <div key={review.id}>
         <h3>{review.book.title}</h3>
         <button onClick={(e) => onDeleteClick(e, review)}>X</button>{" "}
+        <button onClick={(e) => handleEditClick(e, review)}>Edit</button>{" "}
         <span>{review.comment}</span>
       </div>
     );
   });
   // console.log(renderUserReviewedBooks);
 
+  const renderEditUserReviewedBooks = user.reviews.map((review) => {
+    return (
+      <div key={review.id}>
+        <h3>{review.book.title}</h3>
+        <button onClick={(e) => onDeleteClick(e, review)}>X</button>{" "}
+        <button onClick={(e) => handleEditClick(e, review)}>Edit</button>
+        <span>{review.comment}</span>
+        <MyReviewsEditForm
+          onEditReview={onEditReview}
+          onEditClick={handleEditClick}
+        />
+      </div>
+    );
+  });
+
   return (
     <div>
       My Reviews:
-      {renderUserReviewedBooks}
+      {/* conditional rendering shows edit form when isEdit state is true */}
+      {isEdit ? (
+        <>{renderEditUserReviewedBooks}</>
+      ) : (
+        <>{renderUserReviewedBooks}</>
+      )}
     </div>
   );
 };
