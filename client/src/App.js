@@ -64,30 +64,43 @@ function App() {
     });
 
     // update logged in user state with new review. if user navigates to My Reviews page after posting a new review, the new review will be displayed without having to refresh the page.
-    const updatedUser = { ...user, reviews: [...user.reviews, newReview] };
+    const updateUser = { ...user, reviews: [...user.reviews, newReview] };
 
     // console.log(updateBooks);
     setBooks(updateBooks);
 
-    // console.log(updatedUser);
-    setUser(updatedUser);
+    // console.log(updateUser);
+    setUser(updateUser);
   }
 
   function handleDeleteReview(deletedReview) {
-    console.log("handle delete Review", deletedReview);
-    //   // newBooks filters books array down to all books whose id doesn't match the deleted id.
-    //   const newBooks = books.map((book) => {
-    //     // map over books. if the book id matches the deleted review's foreign key for book id, it will copy the book and filter down the book's reviews to those whose id don't match the deleted review's id.
-    //     if (book.id === deletedReview.book_id) {
-    //       return {
-    //         ...book,
-    //         reviews: book.reviews.filter((review) => review.id !== deletedReview.id),
-    //       };
-    //     }
-    //     return book;
-    //   });
-    //   // console.log(newBooks);
-    //   setBooks(newBooks);
+    // console.log("handle delete Review", deletedReview);
+
+    // update logged in user state without the deleted review so it's no longer displayed on My Reviews page.
+    // set state by creating a new array in which the deleted item has been filtered out
+    const updateUser = {
+      ...user,
+      reviews: user.reviews.filter((review) => review.id !== deletedReview.id),
+    };
+
+    // map over books. if the book id matches the deleted review's foreign key for book id, it will copy the book and filter down the book's reviews to those whose id don't match the deleted review's id.
+    const updateBooks = books.map((book) => {
+      if (book.id === deletedReview.book_id) {
+        return {
+          ...book,
+          reviews: book.reviews.filter(
+            (review) => review.id !== deletedReview.id
+          ),
+        };
+      }
+      return book;
+    });
+
+    // console.log(updateUser);
+    setUser(updateUser);
+
+    // console.log(updateBooks);
+    setBooks(updateBooks);
   }
 
   return (
