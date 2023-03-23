@@ -104,23 +104,40 @@ function App() {
   }
 
   function handleEditReview(editReview) {
-    console.log("In ReviewsList:", editReview);
+    // console.log("In ReviewsList:", editReview);
+
     // map over all books. if the book id matches edited review's foreign key for book id, it'll replace existing review as long as the review id matches the id of the review being edited.
-    // const updateBooks = books.map((book) => {
-    //   if (book.id === editReview.book_id) {
-    //     return {
-    //       ...book,
-    //       reviews: book.reviews.map((review) => {
-    //         if (review.id === editReview.id) {
-    //           return editReview;
-    //         }
-    //         return review;
-    //       }),
-    //     };
-    //   }
-    //   return book;
-    // });
-    // setBooks(updateBooks);
+    const updateBooks = books.map((book) => {
+      if (book.id === editReview.book_id) {
+        return {
+          ...book,
+          reviews: book.reviews.map((review) => {
+            if (review.id === editReview.id) {
+              return editReview;
+            }
+            return review;
+          }),
+        };
+      }
+      return book;
+    });
+
+    // update logged in user state with the edited review
+    // create a new updateUser object that copies the user state and replaces the old review object with the updated review object in the reviews array using the map function.
+    const updateUser = {
+      ...user,
+      reviews: user.reviews.map((review) => {
+        if (review.id === editReview.id) {
+          return editReview;
+        }
+        return review;
+      }),
+    };
+
+    setUser(updateUser);
+    // console.log(updateUser);
+
+    setBooks(updateBooks);
     // console.log(updateBooks);
   }
 
