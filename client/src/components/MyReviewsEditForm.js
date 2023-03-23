@@ -45,18 +45,19 @@ const MyReviewsEditForm = ({ review, onEditClick, onEditReview }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
-    }).then((r) => {
-      if (r.ok) {
-        setErrors([]);
-        // r.json().then((data) => console.log(data));
-        r.json().then((editReview) => onEditReview(editReview));
-      } else {
-        // r.json().then((err) => console.log(err));
-        r.json().then((err) => setErrors(err.error));
-      }
-    });
-    // set isEdit state to !isEdit so the form is no longer displayed
-    onEditClick();
+    })
+      .then((r) => {
+        if (r.ok) {
+          setErrors([]);
+          return r.json();
+        } else {
+          r.json().then((err) => setErrors(err.error));
+        }
+      })
+      .then((editReview) => {
+        onEditReview(editReview);
+        onEditClick();
+      });
   }
 
   return (
