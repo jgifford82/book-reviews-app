@@ -3,8 +3,8 @@ class UsersController < ApplicationController
 
   # GET all users
   def index
-    user = User.all
-    render json: user
+    users = User.all
+    render json: users
   end
 
   # POST new user (sign up)
