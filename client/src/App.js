@@ -20,6 +20,7 @@ function App() {
   //   console.log(user);
   // }
   const [books, setBooks] = useState([]);
+  const [users, setUsers] = useState([]);
 
   // Fetches books data (containing reviews for each book) from backend server & sets state with that data.
   useEffect(() => {
@@ -30,6 +31,14 @@ function App() {
   }, []);
 
   // console.log(books);
+
+  // Fetches users data (containing books) from backend server & sets state with that data.
+  useEffect(() => {
+    fetch("/users")
+      .then((r) => r.json())
+      // .then((data) => console.log(data));
+      .then((data) => setUsers(data));
+  }, []);
 
   // don't need setUser in dependency array, but added it in to clear warning on browser console. removing dependency array led to continuous fetches.
   useEffect(() => {
@@ -160,7 +169,7 @@ function App() {
               <BookReviewsList books={books} onAddReview={handleAddReview} />
             }
           />
-          <Route path="/users/:id" element={<UserBooksList books={books} />} />
+          <Route path="/users/:id" element={<UserBooksList users={users} />} />
           {/* if user is truthy, && operator returns the route so a user that's logged in can see their reviews list */}
           {user && (
             <Route
