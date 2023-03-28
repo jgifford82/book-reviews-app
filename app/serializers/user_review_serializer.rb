@@ -4,7 +4,7 @@ class UserReviewSerializer < ActiveModel::Serializer
 
   # belongs_to :book, serializer: ReviewBookSerializer
 
-  # nesting book in user's reviews so that when a new review is created, it'll include the book and the book's attributes specified in ReviewBookSerializer.
+  # custom book attribute is nesting book in user's reviews so that when a new review is created, it'll include the book and the book's attributes specified in ReviewBookSerializer.
   attribute :book do
     ReviewBookSerializer.new(object.book)
   end
