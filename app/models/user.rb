@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-    # works with brcypt gem to hash and salt all passwords on User model. provides instance methods password and password_confirmation
+    # works with bcrypt gem to hash and salt all passwords on User model. provides instance methods password and password_confirmation
     has_secure_password
 
     # makes sure username exists, is unique, & has at least 2 characters
