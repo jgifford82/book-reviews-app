@@ -20,33 +20,7 @@
 - Render account
 - Postgresql
 
-See Environment Setup below for instructions on installing these tools if you don't already have them.
-
-## Installation
-
-In a terminal, type the following:
-
-```console
-$ git clone git@github.com:jgifford82/book-reviews-app.git
-$ cd book-reviews-app.git
-$ git remote rm origin
-```
-
-VSCode should open. Open a terminal in VSCode and type in:
-
-```sh
-bundle install
-rails db:create
-npm install --prefix client
-```
-
-You can use the following commands to run the application:
-
-- `rails s`: run the backend on [http://localhost:3000](http://localhost:3000)
-- `npm start --prefix client`: run the frontend on
-  [http://localhost:4000](http://localhost:4000)
-
-A browser window should open to: http://localhost:4000/
+See Environment Setup below for instructions on installing these tools if you don't already have them. Otherwise, skip ahead to the installation section.
 
 ## Environment Setup
 
@@ -93,3 +67,31 @@ You can also update your npm version with:
 ```sh
 npm i -g npm
 ```
+
+## Installation
+
+In a terminal, type the following:
+
+```console
+git clone git@github.com:jgifford82/book-reviews-app.git
+cd book-reviews-app
+code .
+```
+
+VSCode should open. Open a terminal in VSCode and type in:
+
+```sh
+bundle install
+npm install --prefix client
+```
+
+## Server
+
+You can use the following commands to run the application:
+
+- `sudo service postgresql start`: start the database server (must be run everytime the computer reboots) and enter your password
+- `rails s`: run the backend on [http://localhost:3000](http://localhost:3000)
+- `npm start --prefix client`: run the frontend on
+  [http://localhost:4000](http://localhost:4000)
+
+A browser window should open to: http://localhost:4000/
